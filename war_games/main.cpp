@@ -114,19 +114,24 @@ void Test()
 	}
 }
 
+static const char * kTestArg = "--test";
+static const char * kNArg = "--n";
+static const char * kKArg = "--k";
+static const char * kNumberThreadsArg = "--num_thread";
+
 int main(int argc, char *argv[])
 {
 	CArgMap arg = ParseCmdline(argc, argv);
 	
-	if (arg.find("--test") != arg.end())
+	if (arg.find(kTestArg) != arg.end())
 	{
 		Test();
 		return 0;
 	}
 
-	if (arg.find("--n") == arg.end() || 
-		arg.find("--k") == arg.end() ||
-		arg.find("--num_thread") == arg.end())
+	if (arg.find(kNArg) == arg.end() ||
+		arg.find(kKArg) == arg.end() ||
+		arg.find(kNumberThreadsArg) == arg.end())
 	{
 		std::cout << "to calc C(N,k) you should define N and k:" << std::endl;
 		std::cout << "    * use --n to define N" << std::endl;
@@ -137,8 +142,8 @@ int main(int argc, char *argv[])
 	}
 
 	// check N and K input data
-	InfInt _N = arg["--n"];
-	InfInt _K = arg["--k"];
+	InfInt _N = arg[kNArg];
+	InfInt _K = arg[kKArg];
 	if (_K > _N || _N < 0 || _K < 0)
 	{
 		std::cout << "Wrong parametrs: k , N" << std::endl;
@@ -148,7 +153,7 @@ int main(int argc, char *argv[])
 	std::cout << "k = " << _K << std::endl;
 
 	// check num_thread input data
-	int num_thread = InfInt(arg["--num_thread"]).toInt();
+	int num_thread = InfInt(arg[kNumberThreadsArg]).toInt();
 	num_thread = (num_thread < 1) ? 1 : num_thread;
 
 	long long ts = 0;
