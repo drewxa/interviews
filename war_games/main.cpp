@@ -5,9 +5,9 @@
 InfInt GetCnk(InfInt N, InfInt K, int num_threads, long long &ts);
 
 
-std::map<String, String> ParseCmdline(int argc, char *argv[])
+CArgMap ParseCmdline(int argc, char *argv[])
 {
-	std::map<String, String> arg;
+	CArgMap arg;
 
 	for (int i = 1; i < argc; i++)
 	{
@@ -116,7 +116,7 @@ void Test()
 
 int main(int argc, char *argv[])
 {
-	std::map<String, String> arg = ParseCmdline(argc, argv);
+	CArgMap arg = ParseCmdline(argc, argv);
 	
 	if (arg.find("--test") != arg.end())
 	{
